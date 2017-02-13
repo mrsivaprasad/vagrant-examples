@@ -4,15 +4,16 @@
 #
 class baseconfig {
   exec { 'apt-get update':
-    command => '/usr/bin/apt-get update';
+    command => '/usr/bin/apt-get update -y',
   }
 
   host { 'hostmachine':
-    ip => '192.168.0.1';
+    ip => '192.168.0.1',
   }
 
   package { ['htop', 'tree', 'unzip']:
-    ensure => present;
+    ensure => present,
+    require => Exec['apt-get-update'],
   }
 
   file {
